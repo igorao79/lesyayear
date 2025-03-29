@@ -7,14 +7,15 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: linear-gradient(135deg, #ff69b4, #ff1493);
-  color: var(--primary-color);
-  position: relative;
-  width: 100%;
   padding: 2rem;
+  background: linear-gradient(135deg, #ffd1dc, #ff9eaa);
+  position: relative;
   overflow: hidden;
 }
 .story::before {
@@ -24,7 +25,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("/images/page2.jpg");
+  background-image: url("/images/page3.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -32,26 +33,6 @@
   opacity: 0.7;
   -webkit-filter: brightness(0.9);
           filter: brightness(0.9);
-}
-
-.title {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  opacity: 0;
-  -webkit-transform: translateY(20px);
-      -ms-transform: translateY(20px);
-          transform: translateY(20px);
-  -webkit-transition: opacity 0.5s ease, -webkit-transform 0.5s ease;
-  transition: opacity 0.5s ease, -webkit-transform 0.5s ease;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  transition: opacity 0.5s ease, transform 0.5s ease, -webkit-transform 0.5s ease;
-  text-align: center;
-}
-.title.show {
-  opacity: 1;
-  -webkit-transform: translateY(0);
-      -ms-transform: translateY(0);
-          transform: translateY(0);
 }
 
 .items {
@@ -62,15 +43,10 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  gap: 1rem;
-  max-width: 500px;
+  gap: 2rem;
   width: 100%;
+  max-width: 800px;
+  margin-top: 2rem;
 }
 
 .item {
@@ -82,7 +58,6 @@
   transition: opacity 0.5s ease, -webkit-transform 0.5s ease;
   transition: opacity 0.5s ease, transform 0.5s ease;
   transition: opacity 0.5s ease, transform 0.5s ease, -webkit-transform 0.5s ease;
-  text-align: center;
 }
 .item.show {
   opacity: 1;
@@ -93,42 +68,33 @@
 
 .text {
   font-size: 1.5rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .imageWrapper {
-  max-width: 200px;
-  width: 60%;
-  aspect-ratio: 1/1;
+  width: 100%;
+  height: 300px;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 15px;
   -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  position: relative;
-  margin: 0 auto;
 }
-.imageWrapper img {
+
+.image {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  -o-object-position: center;
-     object-position: center;
   -webkit-transition: -webkit-transform 0.3s ease;
   transition: -webkit-transform 0.3s ease;
   transition: transform 0.3s ease;
   transition: transform 0.3s ease, -webkit-transform 0.3s ease;
 }
-.imageWrapper img:hover {
+.image:hover {
   -webkit-transform: scale(1.05);
       -ms-transform: scale(1.05);
           transform: scale(1.05);
-}
-
-@media only screen and (max-width: 768px) {
-  .imageWrapper {
-    width: 50%;
-  }
-  .items {
-    gap: 2rem;
-  }
-}/*# sourceMappingURL=Story.module.css.map */
+}/*# sourceMappingURL=ThirdPage.module.css.map */

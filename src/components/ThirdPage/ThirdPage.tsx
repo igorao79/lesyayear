@@ -10,12 +10,12 @@ interface StoryItem {
 
 const storyItems: StoryItem[] = [
   {
-    text: 'Путешествовать вместе по миру',
-    image: '/images/travel.jpg'
+    text: 'Впервые побывать в столице',
+    image: '/lesyayear/images/travel.jpg'
   },
   {
-    text: 'Поддерживать друг друга каждый день',
-    image: '/images/support.jpg'
+    text: 'Почувствовать морзкой бриз',
+    image: '/lesyayear/images/support.jpg'
   }
 ]
 
@@ -54,7 +54,7 @@ export const ThirdPage: React.FC<ThirdPageProps> = ({ onScrollClick }) => {
   }, [])
 
   return (
-    <div className={stylesb.story}>
+    <div className={`${stylesb.story} ${styles.story}`}>
       <h2 className={`${styles.title} ${showTitle ? styles.show : ''}`}>
         А также мы научились...
       </h2>
@@ -71,4 +71,4 @@ export const ThirdPage: React.FC<ThirdPageProps> = ({ onScrollClick }) => {
       {onScrollClick && <ScrollArrow show={showArrow} onClick={onScrollClick} />}
     </div>
   )
-} 
+}

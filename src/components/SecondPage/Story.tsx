@@ -10,11 +10,11 @@ interface StoryItem {
 const storyItems: StoryItem[] = [
   {
     text: 'Познакомиться и полюбить друг друга',
-    image: '/images/meet.jpg'
+    image: '/lesyayear/images/meet.jpg'
   },
   {
-    text: 'Создать множество прекрасных воспоминаний',
-    image: '/images/memories.jpg'
+    text: 'Пройти через многие трудности',
+    image: '/lesyayear/images/memories.jpg'
   }
 ]
 

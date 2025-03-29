@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import styles from './FourthPage.module.scss'
+import ScrollToTop from '../ScrollToTop/ScrollToTop'
 
-export const FourthPage: React.FC = () => {
+interface FourthPageProps {
+  onScrollToTop?: () => void
+}
+
+export const FourthPage: React.FC<FourthPageProps> = ({ onScrollToTop }) => {
   const [showTexts, setShowTexts] = useState<boolean[]>(new Array(3).fill(false))
   const [showGifs, setShowGifs] = useState(false)
+  const [showScrollToTop, setShowScrollToTop] = useState(false)
 
   useEffect(() => {
     // Показываем тексты последовательно
@@ -22,8 +28,19 @@ export const FourthPage: React.FC = () => {
       }, 1000 + index * 1500)
     })
 
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      setShowScrollToTop(scrollPosition > windowHeight * 2 && scrollPosition < documentHeight - windowHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
     return () => {
       textTimers.forEach(timer => clearTimeout(timer))
+      window.removeEventListener('scroll', handleScroll)
     }
   }, [])
 
@@ -34,16 +51,17 @@ export const FourthPage: React.FC = () => {
           Спасибо тебе за все
         </h2>
         <h2 className={`${styles.text} ${showTexts[1] ? styles.show : ''}`}>
-          Я очень тебя люблю
-        </h2>
-        <h2 className={`${styles.text} ${showTexts[2] ? styles.show : ''}`}>
           Надеюсь мы будем всегда вместе
         </h2>
+        <h2 className={`${styles.text} ${showTexts[2] ? styles.show : ''}`}>
+          Я очень тебя люблю
+        </h2>
         <div className={`${styles.gifsContainer} ${showGifs ? styles.show : ''}`}>
-          <img src="/images/kotikleft.gif" alt="Love gif 1" className={styles.gif} />
-          <img src="/images/kotikright.gif" alt="Love gif 2" className={styles.gif} />
+          <img src="/lesyayear/images/kotikleft.gif" alt="Love gif 1" className={styles.gif} />
+          <img src="/lesyayear/images/kotikright.gif" alt="Love gif 2" className={styles.gif} />
         </div>
       </div>
+      {showScrollToTop && onScrollToTop && <ScrollToTop onClick={onScrollToTop} />}
     </div>
   )
 } 

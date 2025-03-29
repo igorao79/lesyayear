@@ -3,7 +3,10 @@ import { FirstPage } from './components/FirstPage/FirstPage'
 import { Story } from './components/SecondPage/Story'
 import { ThirdPage } from './components/ThirdPage/ThirdPage'
 import { FourthPage } from './components/FourthPage/FourthPage'
+import { HeartsAnimation } from './components/HeartsAnimation/HeartsAnimation'
+import { PageTransition } from './components/PageTransition/PageTransition'
 import styles from './App.module.scss'
+import ScrollToTop from './components/ScrollToTop/ScrollToTop'
 
 function App() {
   const [showText, setShowText] = useState(false)
@@ -17,6 +20,9 @@ function App() {
   const [isThirdPageVisible, setIsThirdPageVisible] = useState(false)
   const [showFourthPage, setShowFourthPage] = useState(false)
   const [isFourthPageVisible, setIsFourthPageVisible] = useState(false)
+  const [showTransition, setShowTransition] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [showScrollToTop, setShowScrollToTop] = useState(false)
   const firstPageRef = useRef<HTMLDivElement>(null)
   const storyRef = useRef<HTMLDivElement>(null)
   const thirdPageRef = useRef<HTMLDivElement>(null)
@@ -40,7 +46,7 @@ function App() {
     // Анимируем число
     let numberInterval: number
     let startTime: number
-    const duration = 4000 // 4 секунды
+    const duration = 3000 
     const numbers = Array.from({ length: 50 }, () => Math.floor(Math.random() * 99) + 1) // Генерируем 50 случайных чисел
     let currentIndex = 0
 
@@ -70,18 +76,34 @@ function App() {
     const arrowTimer = setTimeout(() => {
       console.log('Showing arrow')
       setShowArrow(true)
-    }, 6500)
+    }, 5500)
 
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // Показываем стрелку, когда пользователь прокрутил страницу на 70% от высоты
+      setShowScrollToTop(scrollPosition > windowHeight * 2 && scrollPosition < documentHeight - windowHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll);
     return () => {
       clearTimeout(textTimer)
       clearTimeout(numberTimer)
       clearTimeout(arrowTimer)
       window.clearInterval(numberInterval)
+      window.removeEventListener('scroll', handleScroll)
     }
   }, [showNumber])
 
+  const handleTransitionEnd = () => {
+    setShowTransition(false)
+  }
+
   const scrollDown = () => {
     console.log('Scroll clicked')
+    setShowTransition(true)
     setShowStory(true)
     document.body.style.overflow = 'auto'
     
@@ -95,6 +117,7 @@ function App() {
   }
 
   const scrollToThirdPage = () => {
+    setShowTransition(true)
     setShowThirdPage(true)
     
     // Даем время на рендер ThirdPage компонента
@@ -107,6 +130,7 @@ function App() {
   }
 
   const scrollToFourthPage = () => {
+    setShowTransition(true)
     setShowFourthPage(true)
     
     // Даем время на рендер FourthPage компонента
@@ -118,8 +142,25 @@ function App() {
     }, 100)
   }
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+    // Сбрасываем все состояния
+    setShowStory(false);
+    setShowThirdPage(false);
+    setShowFourthPage(false);
+    setCurrentPage(1);
+    setIsStoryVisible(false);
+    setIsThirdPageVisible(false);
+    setIsFourthPageVisible(false);
+  }
+
   return (
     <div className={styles.app}>
+      <HeartsAnimation />
+      {showTransition && <PageTransition onTransitionEnd={handleTransitionEnd} />}
       <FirstPage
         showText={showText}
         showNumber={showNumber}
@@ -145,8 +186,9 @@ function App() {
         ref={fourthPageRef} 
         className={`${styles.storyContainer} ${isFourthPageVisible ? styles.visible : ''}`}
       >
-        {showFourthPage && <FourthPage />}
+        {showFourthPage && <FourthPage onScrollToTop={scrollToTop} />}
       </div>
+      {showScrollToTop && <ScrollToTop onClick={scrollToTop} />}
     </div>
   )
 }
