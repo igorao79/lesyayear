@@ -21,7 +21,6 @@ function App() {
   const [showFourthPage, setShowFourthPage] = useState(false)
   const [isFourthPageVisible, setIsFourthPageVisible] = useState(false)
   const [showTransition, setShowTransition] = useState(false)
-  const [currentPage, setCurrentPage] = useState(1)
   const [showScrollToTop, setShowScrollToTop] = useState(false)
   const firstPageRef = useRef<HTMLDivElement>(null)
   const storyRef = useRef<HTMLDivElement>(null)
@@ -151,7 +150,6 @@ function App() {
     setShowStory(false);
     setShowThirdPage(false);
     setShowFourthPage(false);
-    setCurrentPage(1);
     setIsStoryVisible(false);
     setIsThirdPageVisible(false);
     setIsFourthPageVisible(false);

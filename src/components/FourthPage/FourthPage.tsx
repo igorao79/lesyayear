@@ -23,24 +23,19 @@ export const FourthPage: React.FC<FourthPageProps> = ({ onScrollToTop }) => {
         
         // После показа всех текстов показываем гифки
         if (index === 2) {
-          setTimeout(() => setShowGifs(true), 1000)
+          setTimeout(() => {
+            setShowGifs(true)
+            // Показываем стрелку после показа гифок
+            setTimeout(() => {
+              setShowScrollToTop(true)
+            }, 1000)
+          }, 1000)
         }
       }, 1000 + index * 1500)
     })
 
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      
-      setShowScrollToTop(scrollPosition > windowHeight * 2 && scrollPosition < documentHeight - windowHeight);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
     return () => {
       textTimers.forEach(timer => clearTimeout(timer))
-      window.removeEventListener('scroll', handleScroll)
     }
   }, [])
 
