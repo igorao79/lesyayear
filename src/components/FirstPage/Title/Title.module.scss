@@ -1,0 +1,13 @@
+.title {
+  font-size: clamp(1.5rem, 4vw + 1rem, 3rem);
+  color: var(--primary-color);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 

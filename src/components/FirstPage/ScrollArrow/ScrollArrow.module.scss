@@ -1,0 +1,28 @@
+.container {
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.arrow {
+  font-size: 3rem;
+  color: var(--primary-color);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  user-select: none;
+  pointer-events: none;
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  &:hover {
+    transform: translateY(10px);
+  }
+} 
