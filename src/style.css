@@ -1,0 +1,61 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  ::-webkit-scrollbar { /* chrome based */
+    width: 0px;  /* ширина scrollbar'a */
+    background: transparent;  /* опционально */
+}
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  position: relative;
+}
+
+#root {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+:root {
+    --primary-color: rgb(151, 29, 29);
+    --font-title: 'lobster';
+    --font-text: 'mscript';
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+}
+
+p, span, a, li {
+  font-family: var(--font-text);
+}
+
+/* ///////////////////////////////////////// */
+
+@font-face {
+  font-family: 'mscript';
+  src: url('./fonts/marckscript.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'lobster';
+  src: url('./fonts/lobster.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+} 
+
+

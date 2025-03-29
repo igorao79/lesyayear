@@ -30,4 +30,14 @@ body {
 
 :root {
   --primary-color: rgb(151, 29, 29);
+  --font-title: "nk123";
+  --font-text: "romantic";
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+}
+
+p, span, a, li {
+  font-family: var(--font-text);
 }/*# sourceMappingURL=style.css.map */
