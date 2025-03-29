@@ -36,6 +36,7 @@ export const FourthPage: React.FC<FourthPageProps> = ({ onScrollToTop }) => {
 
     return () => {
       textTimers.forEach(timer => clearTimeout(timer))
+      setShowScrollToTop(false)
     }
   }, [])
 
