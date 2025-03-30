@@ -159,8 +159,8 @@
 }
 
 .gif {
-  width: 200px;
-  height: 200px;
+  max-width: 200px;
+  min-height: 200px;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 10px;
@@ -177,4 +177,24 @@
   -webkit-transform: scale(1.05);
       -ms-transform: scale(1.05);
           transform: scale(1.05);
+}
+
+@media only screen and (max-width: 768px) {
+  .text {
+    font-size: 1.5rem;
+  }
+  .gifsContainer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    opacity: 0;
+    -webkit-transform: translateY(0px);
+        -ms-transform: translateY(0px);
+            transform: translateY(0px);
+    margin-top: 0.2rem;
+  }
+  .gif {
+    max-width: 120px;
+    min-height: 120px !important;
+  }
 }/*# sourceMappingURL=FinalPage.module.css.map */
