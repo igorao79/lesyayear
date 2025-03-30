@@ -4,17 +4,29 @@ import { ScrollArrow } from '../FirstPage/ScrollArrow/ScrollArrow' // Обнов
 
 interface StoryItem {
   text: string
-  image: string
+  image: {
+    avif: string
+    webp: string
+    jpg: string
+  }
 }
 
 const storyItems: StoryItem[] = [
   {
     text: 'Познакомиться и полюбить друг друга',
-    image: '/lesyayear/images/meet.jpg'
+    image: {
+      avif: '/lesyayear/images/us/meet.avif',
+      webp: '/lesyayear/images/us/meet.webp',
+      jpg: '/lesyayear/images/us/meet.jpg'
+    }
   },
   {
     text: 'Пройти через многие трудности',
-    image: '/lesyayear/images/memories.jpg'
+    image: {
+      avif: '/lesyayear/images/us/memories.avif',
+      webp: '/lesyayear/images/us/memories.webp',
+      jpg: '/lesyayear/images/us/memories.jpg'
+    }
   }
 ]
 
@@ -54,6 +66,7 @@ export const Story: React.FC<StoryProps> = ({ onScrollClick }) => {
 
   return (
     <div className={styles.story}>
+      <div className={styles.content}>
       <h2 className={`${styles.title} ${showTitle ? styles.show : ''}`}>
         За это время мы смогли...
       </h2>
@@ -62,12 +75,17 @@ export const Story: React.FC<StoryProps> = ({ onScrollClick }) => {
           <div key={index} className={`${styles.item} ${showItems[index] ? styles.show : ''}`}>
             <p className={styles.text}>{item.text}</p>
             <div className={styles.imageWrapper}>
-              <img src={item.image} alt={item.text} className={styles.image} />
+              <picture>
+                <source srcSet={item.image.avif} type="image/avif" />
+                <source srcSet={item.image.webp} type="image/webp" />
+                <img src={item.image.jpg} alt={item.text} className={styles.image} />
+              </picture>
             </div>
           </div>
         ))}
       </div>
       <ScrollArrow show={showArrow} onClick={onScrollClick} />
+      </div>
     </div>
   )
 }

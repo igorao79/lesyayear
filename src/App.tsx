@@ -27,6 +27,18 @@ function App() {
   const fourthPageRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    // Отключаем скролл при монтировании
+    document.body.style.overflow = 'hidden'
+    
+    // Включаем скролл только при переходе наверх
+    return () => {
+      if (!isResetting) {
+        document.body.style.overflow = 'hidden'
+      }
+    }
+  }, [isResetting])
+
+  useEffect(() => {
     if (isResetting) {
       setIsResetting(false)
       return

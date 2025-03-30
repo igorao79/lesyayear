@@ -14,7 +14,6 @@ html, body {
 }
 
 body {
-  font-family: Arial, sans-serif;
   line-height: 1.6;
   position: relative;
 }
@@ -28,8 +27,10 @@ body {
 
 :root {
     --primary-color: rgb(151, 29, 29);
-    --font-title: 'lobster';
-    --font-text: 'mscript';
+    --font-title: 'lobster', sans-serif;
+    --font-text: 'mscript', sans-serif;
+    --block-back: rgba(255, 255, 255, 0.2);
+    --block-filter: blur(5px);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -39,6 +40,8 @@ h1, h2, h3, h4, h5, h6 {
 p, span, a, li {
   font-family: var(--font-text);
 }
+
+
 
 /* ///////////////////////////////////////// */
 

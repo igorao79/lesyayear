@@ -40,8 +40,9 @@ npm run deploy
 
 ## Автор
 
-[Ваше имя]
+igorao79
+https://github.com/igorao79
 
 ## Лицензия
 
-MIT
+Используйте для своих вторых половинок :З

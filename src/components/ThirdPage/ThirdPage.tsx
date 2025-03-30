@@ -5,17 +5,29 @@ import { ScrollArrow } from '../FirstPage/ScrollArrow/ScrollArrow'
 
 interface StoryItem {
   text: string
-  image: string
+  image: {
+    avif: string
+    webp: string
+    jpg: string
+  }
 }
 
 const storyItems: StoryItem[] = [
   {
     text: 'Впервые побывать в столице',
-    image: '/lesyayear/images/travel.jpg'
+    image: {
+      avif: '/lesyayear/images/us/travel.avif',
+      webp: '/lesyayear/images/us/travel.webp',
+      jpg: '/lesyayear/images/us/travel.jpg'
+    }
   },
   {
     text: 'Почувствовать морзкой бриз',
-    image: '/lesyayear/images/support.jpg'
+    image: {
+      avif: '/lesyayear/images/us/support.avif',
+      webp: '/lesyayear/images/us/support.webp',
+      jpg: '/lesyayear/images/us/support.jpg'
+    }
   }
 ]
 
@@ -55,20 +67,26 @@ export const ThirdPage: React.FC<ThirdPageProps> = ({ onScrollClick }) => {
 
   return (
     <div className={`${stylesb.story} ${styles.story}`}>
-      <h2 className={`${styles.title} ${showTitle ? styles.show : ''}`}>
-        А также мы научились...
-      </h2>
-      <div className={styles.items}>
-        {storyItems.map((item, index) => (
-          <div key={index} className={`${styles.item} ${showItems[index] ? styles.show : ''}`}>
-            <p className={styles.text}>{item.text}</p>
-            <div className={styles.imageWrapper}>
-              <img src={item.image} alt={item.text} className={styles.image} />
+      <div className={styles.content}>
+        <h2 className={`${styles.title} ${showTitle ? styles.show : ''}`}>
+          А также мы научились...
+        </h2>
+        <div className={styles.items}>
+          {storyItems.map((item, index) => (
+            <div key={index} className={`${styles.item} ${showItems[index] ? styles.show : ''}`}>
+              <p className={styles.text}>{item.text}</p>
+              <div className={styles.imageWrapper}>
+                <picture>
+                  <source srcSet={item.image.avif} type="image/avif" />
+                  <source srcSet={item.image.webp} type="image/webp" />
+                  <img src={item.image.jpg} alt={item.text} className={styles.image} />
+                </picture>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        {onScrollClick && <ScrollArrow show={showArrow} onClick={onScrollClick} />}
       </div>
-      {onScrollClick && <ScrollArrow show={showArrow} onClick={onScrollClick} />}
     </div>
   )
 }

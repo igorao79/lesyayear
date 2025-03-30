@@ -21,7 +21,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("/lesyayear/images/page1.jpg");
+  background-image: -webkit-image-set(url("/lesyayear/images/back/page1.avif"), url("/lesyayear/images/back/page1.webp"), url("/lesyayear/images/back/page1.jpg"));
+  background-image: image-set(url("/lesyayear/images/back/page1.avif"), url("/lesyayear/images/back/page1.webp"), url("/lesyayear/images/back/page1.jpg"));
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -36,9 +37,9 @@
   width: 100%;
   max-width: 800px;
   padding: 0.1rem;
-  background-color: rgba(255, 255, 255, 0.2);
-  -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
+  background-color: var(--block-back);
+  -webkit-backdrop-filter: var(--block-filter);
+          backdrop-filter: var(--block-filter);
   border-radius: 15px;
   text-align: center;
 }/*# sourceMappingURL=FirstPage.module.css.map */

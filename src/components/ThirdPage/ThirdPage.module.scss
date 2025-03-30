@@ -2,27 +2,47 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 2rem;
-  background: linear-gradient(135deg, #ffd1dc, #ff9eaa);
+  justify-content: center;
+  color: var(--primary-color);
   position: relative;
+  width: 100%;
+  padding: 2rem;
   overflow: hidden;
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('/images/page3.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      z-index: 0; // Ниже контента
-      opacity: 0.7; // Добавим прозрачность для лучшей читаемости текста
-      filter: brightness(0.9); // Дополнительное затемнение
-    }
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: image-set(
+      url('/lesyayear/images/back/page3.avif'),
+      url('/lesyayear/images/back/page3.webp'),
+      url('/lesyayear/images/back/page3.jpg')
+    );
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+    opacity: 0.7;
+    filter: brightness(0.9);
   }
+
+  .content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 1;
+    width: 100%;
+    max-width: 800px;
+    padding: 2rem;
+    background-color: var(--block-back);
+    backdrop-filter: var(--block-filter);
+    border-radius: 15px;
+  }
+}
 
