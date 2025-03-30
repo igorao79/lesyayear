@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { FirstPage } from './components/FirstPage/FirstPage'
 import { StoryBlock } from './components/StoryBlock/StoryBlock'
-import { FourthPage } from './components/FourthPage/FourthPage'
+import { FinalPage } from './components/FinalPage/FinalPage'
 import { HeartsAnimation } from './components/utils/HeartsAnimation/HeartsAnimation'
 import { PageTransition } from './components/utils/PageTransition/PageTransition'
+import styles from './App.module.scss'
 
 const secondPageItems = [
   {
@@ -26,7 +27,7 @@ const secondPageItems = [
 
 const thirdPageItems = [
   {
-    text: 'Впервые побывать в столице',
+    text: 'Впервые побывали в столице',
     image: {
       avif: '/lesyayear/images/us/travel.avif',
       webp: '/lesyayear/images/us/travel.webp',
@@ -34,11 +35,30 @@ const thirdPageItems = [
     }
   },
   {
-    text: 'Почувствовать морзкой бриз',
+    text: 'Почувствовали морзкой бриз',
     image: {
       avif: '/lesyayear/images/us/support.avif',
       webp: '/lesyayear/images/us/support.webp',
       jpg: '/lesyayear/images/us/support.jpg'
+    }
+  }
+]
+
+const fourthPageItems = [
+  {
+    text: 'Это замечательное лето вместе',
+    image: {
+      avif: '/lesyayear/images/us/summer.avif',
+      webp: '/lesyayear/images/us/summer.webp',
+      jpg: '/lesyayear/images/us/summer.jpg'
+    }
+  },
+  {
+    text: 'И с каждым днем ты становишься все прекраснее',
+    image: {
+      avif: '/lesyayear/images/us/computer.avif',
+      webp: '/lesyayear/images/us/computer.webp',
+      jpg: '/lesyayear/images/us/computer.jpg'
     }
   }
 ]
@@ -52,12 +72,14 @@ function App() {
   const [showStory, setShowStory] = useState(false)
   const [showThirdPage, setShowThirdPage] = useState(false)
   const [showFourthPage, setShowFourthPage] = useState(false)
+  const [showFinalPage, setShowFinalPage] = useState(false)
   const [showTransition, setShowTransition] = useState(false)
   const [isResetting, setIsResetting] = useState(false)
   const firstPageRef = useRef<HTMLDivElement>(null)
   const storyRef = useRef<HTMLDivElement>(null)
   const thirdPageRef = useRef<HTMLDivElement>(null)
   const fourthPageRef = useRef<HTMLDivElement>(null)
+  const finalPageRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (isResetting) {
@@ -116,49 +138,45 @@ function App() {
     }
   }, [showNumber, isResetting])
 
+  useEffect(() => {
+    document.body.style.overflow = 'auto'
+  }, [])
+
   const handleTransitionEnd = () => {
     setShowTransition(false)
   }
 
-  const scrollDown = () => {
-    console.log('Scroll clicked')
+  const scrollToSection = (ref: React.RefObject<HTMLDivElement>, setShowState: (value: boolean) => void) => {
     setShowTransition(true)
-    setShowStory(true)
-    document.body.style.overflow = 'auto'
+    setShowState(true)
     
     setTimeout(() => {
-      if (storyRef.current) {
-        storyRef.current.scrollIntoView({ behavior: 'smooth' })
+      if (ref.current) {
+        ref.current.scrollIntoView({ behavior: 'smooth' })
       }
-    }, 100)
+    }, 500)
+  }
+
+  const scrollDown = () => {
+    console.log('Scroll clicked')
+    scrollToSection(storyRef, setShowStory)
   }
 
   const scrollToThirdPage = () => {
-    setShowTransition(true)
-    setShowThirdPage(true)
-    
-    setTimeout(() => {
-      if (thirdPageRef.current) {
-        thirdPageRef.current.scrollIntoView({ behavior: 'smooth' })
-      }
-    }, 100)
+    scrollToSection(thirdPageRef, setShowThirdPage)
   }
 
   const scrollToFourthPage = () => {
-    setShowTransition(true)
-    setShowFourthPage(true)
-    
-    setTimeout(() => {
-      if (fourthPageRef.current) {
-        fourthPageRef.current.scrollIntoView({ behavior: 'smooth' })
-      }
-    }, 100)
+    scrollToSection(fourthPageRef, setShowFourthPage)
+  }
+
+  const scrollToFinalPage = () => {
+    scrollToSection(finalPageRef, setShowFinalPage)
   }
 
   const scrollToTop = () => {
     setShowTransition(true)
     setIsResetting(true)
-    document.body.style.overflow = 'hidden'
     
     if (firstPageRef.current) {
       firstPageRef.current.scrollIntoView({ behavior: 'smooth' })
@@ -167,53 +185,64 @@ function App() {
     setShowStory(false)
     setShowThirdPage(false)
     setShowFourthPage(false)
+    setShowFinalPage(false)
     setShowText(false)
     setShowNumber(false)
     setNumber(0)
     setShowYear(false)
     setShowArrow(false)
-
-    setTimeout(() => {
-      document.body.style.overflow = 'auto'
-    }, 1000)
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <HeartsAnimation />
       {showTransition && <PageTransition onTransitionEnd={handleTransitionEnd} />}
-      <FirstPage
-        showText={showText}
-        showNumber={showNumber}
-        number={number}
-        showYear={showYear}
-        showArrow={showArrow}
-        onScrollClick={scrollDown}
-        pageRef={firstPageRef}
-      />
-      <div ref={storyRef}>
-        {showStory && (
+      <div className={styles.section} ref={firstPageRef}>
+        <FirstPage
+          showText={showText}
+          showNumber={showNumber}
+          number={number}
+          showYear={showYear}
+          showArrow={showArrow}
+          onScrollClick={scrollDown}
+          pageRef={firstPageRef}
+        />
+      </div>
+      {showStory && (
+        <div className={styles.section} ref={storyRef}>
           <StoryBlock
-            title="За это время мы смогли..."
+            title="За это время мы смогли ..."
             items={secondPageItems}
             onScrollClick={scrollToThirdPage}
             backgroundImage="/lesyayear/images/back/page2.jpg"
           />
-        )}
-      </div>
-      <div ref={thirdPageRef}>
-        {showThirdPage && (
+        </div>
+      )}
+      {showThirdPage && (
+        <div className={styles.section} ref={thirdPageRef}>
           <StoryBlock
-            title="А также мы научились..."
+            title="А также мы ..."
             items={thirdPageItems}
             onScrollClick={scrollToFourthPage}
             backgroundImage="/lesyayear/images/back/page3.jpg"
           />
-        )}
-      </div>
-      <div ref={fourthPageRef}>
-        {showFourthPage && <FourthPage onScrollToTop={scrollToTop} />}
-      </div>
+        </div>
+      )}
+      {showFourthPage && (
+        <div className={styles.section} ref={fourthPageRef}>
+          <StoryBlock
+            title="Мы провели ..."
+            items={fourthPageItems}
+            onScrollClick={scrollToFinalPage}
+            backgroundImage="/lesyayear/images/back/page4.jpg"
+          />
+        </div>
+      )}
+      {showFinalPage && (
+        <div className={styles.section} ref={finalPageRef}>
+          <FinalPage onScrollToTop={scrollToTop} />
+        </div>
+      )}
     </div>
   )
 }

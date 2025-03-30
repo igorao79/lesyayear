@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styles from './StoryBlock.module.scss'
-import { ScrollArrow } from '../FirstPage/ScrollArrow/ScrollArrow'
+import { ScrollArrow } from '../utils/ScrollArrow/ScrollArrow'
 
 interface StoryItem {
   text: string

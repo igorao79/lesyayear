@@ -12,6 +12,7 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.8s ease;
+  user-select: none;
 
   &.animate {
     opacity: 1;

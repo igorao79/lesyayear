@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './FirstPage.module.scss'
 import { Title } from './Title/Title'
 import { Counter } from './Counter/Counter'
-import { ScrollArrow } from './ScrollArrow/ScrollArrow'
+import { ScrollArrow } from '../utils/ScrollArrow/ScrollArrow'
 
 interface FirstPageProps {
   showText: boolean
