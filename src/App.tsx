@@ -35,7 +35,7 @@ const thirdPageItems = [
     }
   },
   {
-    text: 'Почувствовали морзкой бриз',
+    text: 'Почувствовали морской бриз',
     image: {
       avif: '/lesyayear/images/us/support.avif',
       webp: '/lesyayear/images/us/support.webp',
