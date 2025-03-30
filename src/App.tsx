@@ -1,11 +1,47 @@
 import { useState, useEffect, useRef } from 'react'
 import { FirstPage } from './components/FirstPage/FirstPage'
-import { SecondPage } from './components/SecondPage/SecondPage'
-import { ThirdPage } from './components/ThirdPage/ThirdPage'
+import { StoryBlock } from './components/StoryBlock/StoryBlock'
 import { FourthPage } from './components/FourthPage/FourthPage'
 import { HeartsAnimation } from './components/utils/HeartsAnimation/HeartsAnimation'
 import { PageTransition } from './components/utils/PageTransition/PageTransition'
 
+const secondPageItems = [
+  {
+    text: 'Познакомиться и полюбить друг друга',
+    image: {
+      avif: '/lesyayear/images/us/meet.avif',
+      webp: '/lesyayear/images/us/meet.webp',
+      jpg: '/lesyayear/images/us/meet.jpg'
+    }
+  },
+  {
+    text: 'Пройти через многие трудности',
+    image: {
+      avif: '/lesyayear/images/us/memories.avif',
+      webp: '/lesyayear/images/us/memories.webp',
+      jpg: '/lesyayear/images/us/memories.jpg'
+    }
+  }
+]
+
+const thirdPageItems = [
+  {
+    text: 'Впервые побывать в столице',
+    image: {
+      avif: '/lesyayear/images/us/travel.avif',
+      webp: '/lesyayear/images/us/travel.webp',
+      jpg: '/lesyayear/images/us/travel.jpg'
+    }
+  },
+  {
+    text: 'Почувствовать морзкой бриз',
+    image: {
+      avif: '/lesyayear/images/us/support.avif',
+      webp: '/lesyayear/images/us/support.webp',
+      jpg: '/lesyayear/images/us/support.jpg'
+    }
+  }
+]
 
 function App() {
   const [showText, setShowText] = useState(false)
@@ -156,10 +192,24 @@ function App() {
         pageRef={firstPageRef}
       />
       <div ref={storyRef}>
-        {showStory && <SecondPage onScrollClick={scrollToThirdPage} />}
+        {showStory && (
+          <StoryBlock
+            title="За это время мы смогли..."
+            items={secondPageItems}
+            onScrollClick={scrollToThirdPage}
+            backgroundImage="/lesyayear/images/back/page2.jpg"
+          />
+        )}
       </div>
       <div ref={thirdPageRef}>
-        {showThirdPage && <ThirdPage onScrollClick={scrollToFourthPage} />}
+        {showThirdPage && (
+          <StoryBlock
+            title="А также мы научились..."
+            items={thirdPageItems}
+            onScrollClick={scrollToFourthPage}
+            backgroundImage="/lesyayear/images/back/page3.jpg"
+          />
+        )}
       </div>
       <div ref={fourthPageRef}>
         {showFourthPage && <FourthPage onScrollToTop={scrollToTop} />}

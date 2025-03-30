@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import styles from './SecondPage.module.scss'
+import styles from './StoryBlock.module.scss'
 import { ScrollArrow } from '../FirstPage/ScrollArrow/ScrollArrow'
 
-interface SecondPageItem {
+interface StoryItem {
   text: string
   image: {
     avif: string
@@ -11,40 +11,31 @@ interface SecondPageItem {
   }
 }
 
-const secondPageItems: SecondPageItem[] = [
-  {
-    text: 'Познакомиться и полюбить друг друга',
-    image: {
-      avif: '/lesyayear/images/us/meet.avif',
-      webp: '/lesyayear/images/us/meet.webp',
-      jpg: '/lesyayear/images/us/meet.jpg'
-    }
-  },
-  {
-    text: 'Пройти через многие трудности',
-    image: {
-      avif: '/lesyayear/images/us/memories.avif',
-      webp: '/lesyayear/images/us/memories.webp',
-      jpg: '/lesyayear/images/us/memories.jpg'
-    }
-  }
-]
-
-interface SecondPageProps {
-  onScrollClick: () => void
+interface StoryBlockProps {
+  title: string
+  items: StoryItem[]
+  onScrollClick?: () => void
+  backgroundImage: string
+  showArrow?: boolean
 }
 
-export const SecondPage: React.FC<SecondPageProps> = ({ onScrollClick }) => {
+export const StoryBlock: React.FC<StoryBlockProps> = ({ 
+  title, 
+  items, 
+  onScrollClick, 
+  backgroundImage,
+  showArrow = true 
+}) => {
   const [showTitle, setShowTitle] = useState(false)
-  const [showItems, setShowItems] = useState<boolean[]>(new Array(secondPageItems.length).fill(false))
-  const [showArrow, setShowArrow] = useState(false)
+  const [showItems, setShowItems] = useState<boolean[]>(new Array(items.length).fill(false))
+  const [showArrowState, setShowArrowState] = useState(false)
 
   useEffect(() => {
     const titleTimer = setTimeout(() => {
       setShowTitle(true)
     }, 500)
     
-    const itemTimers = secondPageItems.map((_, index) => {
+    const itemTimers = items.map((_, index) => {
       return setTimeout(() => {
         setShowItems(prev => {
           const newItems = [...prev]
@@ -52,8 +43,8 @@ export const SecondPage: React.FC<SecondPageProps> = ({ onScrollClick }) => {
           return newItems
         })
         
-        if (index === secondPageItems.length - 1) {
-          setTimeout(() => setShowArrow(true), 1000)
+        if (index === items.length - 1) {
+          setTimeout(() => setShowArrowState(true), 1000)
         }
       }, 1000 + index * 1500)
     })
@@ -62,16 +53,16 @@ export const SecondPage: React.FC<SecondPageProps> = ({ onScrollClick }) => {
       clearTimeout(titleTimer)
       itemTimers.forEach(timer => clearTimeout(timer))
     }
-  }, [])
+  }, [items.length])
 
   return (
-    <div className={styles.secondPage}>
+    <div className={styles.storyBlock} style={{ '--bg-image': `url(${backgroundImage})` } as React.CSSProperties}>
       <div className={styles.content}>
         <h2 className={`${styles.title} ${showTitle ? styles.show : ''}`}>
-          За это время мы смогли...
+          {title}
         </h2>
         <div className={styles.items}>
-          {secondPageItems.map((item, index) => (
+          {items.map((item, index) => (
             <div key={index} className={`${styles.item} ${showItems[index] ? styles.show : ''}`}>
               <p className={styles.text}>{item.text}</p>
               <div className={styles.imageWrapper}>
@@ -84,7 +75,7 @@ export const SecondPage: React.FC<SecondPageProps> = ({ onScrollClick }) => {
             </div>
           ))}
         </div>
-        <ScrollArrow show={showArrow} onClick={onScrollClick} />
+        {showArrow && onScrollClick && <ScrollArrow show={showArrowState} onClick={onScrollClick} />}
       </div>
     </div>
   )

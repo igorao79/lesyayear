@@ -6,50 +6,52 @@
   height: 100%;
   pointer-events: none;
   z-index: 1000;
+  overflow: hidden;
 }
 
 .heart {
   position: absolute;
-  font-size: 24px;
+  top: -20px;
+  font-size: 20px;
+  -webkit-animation: fall linear forwards;
+          animation: fall linear forwards;
   opacity: 0;
-  -webkit-animation: float 4s ease-in-out infinite;
-          animation: float 4s ease-in-out infinite;
 }
 
-@-webkit-keyframes float {
+@-webkit-keyframes fall {
   0% {
-    -webkit-transform: translateY(100vh) scale(0);
-            transform: translateY(100vh) scale(0);
+    -webkit-transform: translateY(0) rotate(0deg);
+            transform: translateY(0) rotate(0deg);
     opacity: 0;
   }
-  20% {
+  10% {
     opacity: 1;
   }
-  80% {
+  90% {
     opacity: 1;
   }
   100% {
-    -webkit-transform: translateY(-100px) scale(1);
-            transform: translateY(-100px) scale(1);
+    -webkit-transform: translateY(100vh) rotate(360deg);
+            transform: translateY(100vh) rotate(360deg);
     opacity: 0;
   }
 }
 
-@keyframes float {
+@keyframes fall {
   0% {
-    -webkit-transform: translateY(100vh) scale(0);
-            transform: translateY(100vh) scale(0);
+    -webkit-transform: translateY(0) rotate(0deg);
+            transform: translateY(0) rotate(0deg);
     opacity: 0;
   }
-  20% {
+  10% {
     opacity: 1;
   }
-  80% {
+  90% {
     opacity: 1;
   }
   100% {
-    -webkit-transform: translateY(-100px) scale(1);
-            transform: translateY(-100px) scale(1);
+    -webkit-transform: translateY(100vh) rotate(360deg);
+            transform: translateY(100vh) rotate(360deg);
     opacity: 0;
   }
 }/*# sourceMappingURL=HeartsAnimation.module.css.map */
