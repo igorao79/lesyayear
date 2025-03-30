@@ -75,6 +75,7 @@ function App() {
   const [showFinalPage, setShowFinalPage] = useState(false)
   const [showTransition, setShowTransition] = useState(false)
   const [isResetting, setIsResetting] = useState(false)
+  const [isTransitionVisible, setIsTransitionVisible] = useState(false)
   const firstPageRef = useRef<HTMLDivElement>(null)
   const storyRef = useRef<HTMLDivElement>(null)
   const thirdPageRef = useRef<HTMLDivElement>(null)
@@ -144,6 +145,11 @@ function App() {
 
   const handleTransitionEnd = () => {
     setShowTransition(false)
+    setIsTransitionVisible(false)
+  }
+
+  const handleScrollStart = () => {
+    setIsTransitionVisible(true)
   }
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>, setShowState: (value: boolean) => void) => {
@@ -196,7 +202,13 @@ function App() {
   return (
     <div className={styles.container}>
       <HeartsAnimation />
-      {showTransition && <PageTransition onTransitionEnd={handleTransitionEnd} />}
+      {showTransition && (
+        <PageTransition 
+          onTransitionEnd={handleTransitionEnd}
+          onScrollStart={handleScrollStart}
+          isVisible={isTransitionVisible}
+        />
+      )}
       <div className={styles.section} ref={firstPageRef}>
         <FirstPage
           showText={showText}

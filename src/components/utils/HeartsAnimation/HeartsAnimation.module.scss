@@ -15,6 +15,8 @@
   font-size: 20px;
   animation: fall linear forwards;
   opacity: 0;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 @keyframes fall {
@@ -25,11 +27,23 @@
   10% {
     opacity: 1;
   }
-  90% {
+  80% {
     opacity: 1;
   }
   100% {
     transform: translateY(100vh) rotate(360deg);
     opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .heart {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heart {
+    font-size: 14px;
   }
 } 

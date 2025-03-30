@@ -11,7 +11,7 @@ html, body {
   ::-webkit-scrollbar { /* chrome based */
     width: 0px;  /* ширина scrollbar'a */
     background: transparent;  /* опционально */
-  
+  font-size: 10px;
 }
 }
 
@@ -33,6 +33,8 @@ body {
     --font-text: 'mscript', sans-serif;
     --block-back: rgba(255, 255, 255, 0.2);
     --block-filter: blur(5px);
+    --font-size-title: 2.3rem;
+    --font-size-text: 2rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -64,3 +66,9 @@ p, span, a, li {
 } 
 
 
+@media only screen and (max-width: 768px) {
+  :root {
+    --font-size-title: 1.5rem;
+    --font-size-text: 1.3rem;
+  }
+}

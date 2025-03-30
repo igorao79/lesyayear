@@ -68,7 +68,7 @@
 
 .title {
   font-family: "romantic", sans-serif;
-  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-size: var(--font-size-title);
   color: #fff;
   text-align: center;
   margin: 0;
@@ -89,7 +89,7 @@
 
 .subtitle {
   font-family: "romantic", sans-serif;
-  font-size: clamp(1.5rem, 2vw, 2rem);
+  font-size: var(--font-size-text);
   color: #fff;
   text-align: center;
   margin: 0;

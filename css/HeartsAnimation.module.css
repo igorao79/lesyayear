@@ -16,6 +16,9 @@
   -webkit-animation: fall linear forwards;
           animation: fall linear forwards;
   opacity: 0;
+  will-change: transform;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
 }
 
 @-webkit-keyframes fall {
@@ -27,7 +30,7 @@
   10% {
     opacity: 1;
   }
-  90% {
+  80% {
     opacity: 1;
   }
   100% {
@@ -46,12 +49,22 @@
   10% {
     opacity: 1;
   }
-  90% {
+  80% {
     opacity: 1;
   }
   100% {
     -webkit-transform: translateY(100vh) rotate(360deg);
             transform: translateY(100vh) rotate(360deg);
     opacity: 0;
+  }
+}
+@media (max-width: 768px) {
+  .heart {
+    font-size: 16px;
+  }
+}
+@media (max-width: 480px) {
+  .heart {
+    font-size: 14px;
   }
 }/*# sourceMappingURL=HeartsAnimation.module.css.map */
