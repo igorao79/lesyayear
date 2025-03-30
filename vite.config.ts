@@ -30,6 +30,8 @@ export default defineConfig({
   ],
   base: '/lesyayear/',
   build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
     target: 'esnext',
     minify: 'terser',
     terserOptions: {
@@ -47,7 +49,7 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 1000,
     cssCodeSplit: true,
-    sourcemap: false,
+    sourcemap: true,
     assetsInlineLimit: 4096,
     reportCompressedSize: false,
   },
