@@ -19,6 +19,10 @@
   pointer-events: none;
   -webkit-transition: opacity 0.8s ease;
   transition: opacity 0.8s ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 .transition.animate {
   opacity: 1;

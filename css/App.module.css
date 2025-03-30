@@ -1,1 +1,19 @@
-/*# sourceMappingURL=App.module.css.map */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #d0cccc;
+}
+
+.section {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+.section:first-child {
+  display: block;
+}
+
+.section.active {
+  display: block;
+}/*# sourceMappingURL=App.module.css.map */
