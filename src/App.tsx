@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { FirstPage } from './components/FirstPage/FirstPage'
-import { Story } from './components/SecondPage/Story'
+import { SecondPage } from './components/SecondPage/SecondPage'
 import { ThirdPage } from './components/ThirdPage/ThirdPage'
 import { FourthPage } from './components/FourthPage/FourthPage'
-import { HeartsAnimation } from './components/HeartsAnimation/HeartsAnimation'
-import { PageTransition } from './components/PageTransition/PageTransition'
-import styles from './App.module.scss'
+import { HeartsAnimation } from './components/utils/HeartsAnimation/HeartsAnimation'
+import { PageTransition } from './components/utils/PageTransition/PageTransition'
+
 
 function App() {
   const [showText, setShowText] = useState(false)
@@ -14,29 +14,14 @@ function App() {
   const [showYear, setShowYear] = useState(false)
   const [showArrow, setShowArrow] = useState(false)
   const [showStory, setShowStory] = useState(false)
-  const [isStoryVisible, setIsStoryVisible] = useState(false)
   const [showThirdPage, setShowThirdPage] = useState(false)
-  const [isThirdPageVisible, setIsThirdPageVisible] = useState(false)
   const [showFourthPage, setShowFourthPage] = useState(false)
-  const [isFourthPageVisible, setIsFourthPageVisible] = useState(false)
   const [showTransition, setShowTransition] = useState(false)
   const [isResetting, setIsResetting] = useState(false)
   const firstPageRef = useRef<HTMLDivElement>(null)
   const storyRef = useRef<HTMLDivElement>(null)
   const thirdPageRef = useRef<HTMLDivElement>(null)
   const fourthPageRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    // Отключаем скролл при монтировании
-    document.body.style.overflow = 'hidden'
-    
-    // Включаем скролл только при переходе наверх
-    return () => {
-      if (!isResetting) {
-        document.body.style.overflow = 'hidden'
-      }
-    }
-  }, [isResetting])
 
   useEffect(() => {
     if (isResetting) {
@@ -108,7 +93,6 @@ function App() {
     setTimeout(() => {
       if (storyRef.current) {
         storyRef.current.scrollIntoView({ behavior: 'smooth' })
-        setIsStoryVisible(true)
       }
     }, 100)
   }
@@ -120,7 +104,6 @@ function App() {
     setTimeout(() => {
       if (thirdPageRef.current) {
         thirdPageRef.current.scrollIntoView({ behavior: 'smooth' })
-        setIsThirdPageVisible(true)
       }
     }, 100)
   }
@@ -132,7 +115,6 @@ function App() {
     setTimeout(() => {
       if (fourthPageRef.current) {
         fourthPageRef.current.scrollIntoView({ behavior: 'smooth' })
-        setIsFourthPageVisible(true)
       }
     }, 100)
   }
@@ -149,9 +131,6 @@ function App() {
     setShowStory(false)
     setShowThirdPage(false)
     setShowFourthPage(false)
-    setIsStoryVisible(false)
-    setIsThirdPageVisible(false)
-    setIsFourthPageVisible(false)
     setShowText(false)
     setShowNumber(false)
     setNumber(0)
@@ -164,7 +143,7 @@ function App() {
   }
 
   return (
-    <div className={styles.app}>
+    <div>
       <HeartsAnimation />
       {showTransition && <PageTransition onTransitionEnd={handleTransitionEnd} />}
       <FirstPage
@@ -176,22 +155,13 @@ function App() {
         onScrollClick={scrollDown}
         pageRef={firstPageRef}
       />
-      <div 
-        ref={storyRef} 
-        className={`${styles.storyContainer} ${isStoryVisible ? styles.visible : ''}`}
-      >
-        {showStory && <Story onScrollClick={scrollToThirdPage} />}
+      <div ref={storyRef}>
+        {showStory && <SecondPage onScrollClick={scrollToThirdPage} />}
       </div>
-      <div 
-        ref={thirdPageRef} 
-        className={`${styles.storyContainer} ${isThirdPageVisible ? styles.visible : ''}`}
-      >
+      <div ref={thirdPageRef}>
         {showThirdPage && <ThirdPage onScrollClick={scrollToFourthPage} />}
       </div>
-      <div 
-        ref={fourthPageRef} 
-        className={`${styles.storyContainer} ${isFourthPageVisible ? styles.visible : ''}`}
-      >
+      <div ref={fourthPageRef}>
         {showFourthPage && <FourthPage onScrollToTop={scrollToTop} />}
       </div>
     </div>

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import styles from '../SecondPage/SecondPage.module.scss'
-import stylesb from './ThirdPage.module.scss'
+import styles from './SecondPage.module.scss'
 import { ScrollArrow } from '../FirstPage/ScrollArrow/ScrollArrow'
 
-interface StoryItem {
+interface SecondPageItem {
   text: string
   image: {
     avif: string
@@ -12,32 +11,32 @@ interface StoryItem {
   }
 }
 
-const storyItems: StoryItem[] = [
+const secondPageItems: SecondPageItem[] = [
   {
-    text: 'Впервые побывать в столице',
+    text: 'Познакомиться и полюбить друг друга',
     image: {
-      avif: '/lesyayear/images/us/travel.avif',
-      webp: '/lesyayear/images/us/travel.webp',
-      jpg: '/lesyayear/images/us/travel.jpg'
+      avif: '/lesyayear/images/us/meet.avif',
+      webp: '/lesyayear/images/us/meet.webp',
+      jpg: '/lesyayear/images/us/meet.jpg'
     }
   },
   {
-    text: 'Почувствовать морзкой бриз',
+    text: 'Пройти через многие трудности',
     image: {
-      avif: '/lesyayear/images/us/support.avif',
-      webp: '/lesyayear/images/us/support.webp',
-      jpg: '/lesyayear/images/us/support.jpg'
+      avif: '/lesyayear/images/us/memories.avif',
+      webp: '/lesyayear/images/us/memories.webp',
+      jpg: '/lesyayear/images/us/memories.jpg'
     }
   }
 ]
 
-interface ThirdPageProps {
-  onScrollClick?: () => void
+interface SecondPageProps {
+  onScrollClick: () => void
 }
 
-export const ThirdPage: React.FC<ThirdPageProps> = ({ onScrollClick }) => {
+export const SecondPage: React.FC<SecondPageProps> = ({ onScrollClick }) => {
   const [showTitle, setShowTitle] = useState(false)
-  const [showItems, setShowItems] = useState<boolean[]>(new Array(storyItems.length).fill(false))
+  const [showItems, setShowItems] = useState<boolean[]>(new Array(secondPageItems.length).fill(false))
   const [showArrow, setShowArrow] = useState(false)
 
   useEffect(() => {
@@ -45,7 +44,7 @@ export const ThirdPage: React.FC<ThirdPageProps> = ({ onScrollClick }) => {
       setShowTitle(true)
     }, 500)
     
-    const itemTimers = storyItems.map((_, index) => {
+    const itemTimers = secondPageItems.map((_, index) => {
       return setTimeout(() => {
         setShowItems(prev => {
           const newItems = [...prev]
@@ -53,7 +52,7 @@ export const ThirdPage: React.FC<ThirdPageProps> = ({ onScrollClick }) => {
           return newItems
         })
         
-        if (index === storyItems.length - 1) {
+        if (index === secondPageItems.length - 1) {
           setTimeout(() => setShowArrow(true), 1000)
         }
       }, 1000 + index * 1500)
@@ -66,13 +65,13 @@ export const ThirdPage: React.FC<ThirdPageProps> = ({ onScrollClick }) => {
   }, [])
 
   return (
-    <div className={`${stylesb.story} ${styles.story}`}>
+    <div className={styles.secondPage}>
       <div className={styles.content}>
         <h2 className={`${styles.title} ${showTitle ? styles.show : ''}`}>
-          А также мы научились...
+          За это время мы смогли...
         </h2>
         <div className={styles.items}>
-          {storyItems.map((item, index) => (
+          {secondPageItems.map((item, index) => (
             <div key={index} className={`${styles.item} ${showItems[index] ? styles.show : ''}`}>
               <p className={styles.text}>{item.text}</p>
               <div className={styles.imageWrapper}>
@@ -85,8 +84,8 @@ export const ThirdPage: React.FC<ThirdPageProps> = ({ onScrollClick }) => {
             </div>
           ))}
         </div>
-        {onScrollClick && <ScrollArrow show={showArrow} onClick={onScrollClick} />}
+        <ScrollArrow show={showArrow} onClick={onScrollClick} />
       </div>
     </div>
   )
-}
+} 

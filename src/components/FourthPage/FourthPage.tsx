@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styles from './FourthPage.module.scss'
-import ScrollToTop from '../ScrollToTop/ScrollToTop'
+import ScrollToTop from '../utils/ScrollToTop/ScrollToTop'
 
 interface FourthPageProps {
   onScrollToTop?: () => void
