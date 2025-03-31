@@ -17,6 +17,7 @@ interface StoryBlockProps {
   onScrollClick?: () => void
   backgroundImage: string
   showArrow?: boolean
+  startAnimation?: boolean
 }
 
 export const StoryBlock: React.FC<StoryBlockProps> = ({ 
@@ -24,13 +25,21 @@ export const StoryBlock: React.FC<StoryBlockProps> = ({
   items, 
   onScrollClick, 
   backgroundImage,
-  showArrow = true 
+  showArrow = true,
+  startAnimation = false
 }) => {
   const [showTitle, setShowTitle] = useState(false)
   const [showItems, setShowItems] = useState<boolean[]>(new Array(items.length).fill(false))
   const [showArrowState, setShowArrowState] = useState(false)
 
   useEffect(() => {
+    if (!startAnimation) {
+      setShowTitle(false)
+      setShowItems(new Array(items.length).fill(false))
+      setShowArrowState(false)
+      return
+    }
+
     const titleTimer = setTimeout(() => {
       setShowTitle(true)
     }, 500)
@@ -53,7 +62,7 @@ export const StoryBlock: React.FC<StoryBlockProps> = ({
       clearTimeout(titleTimer)
       itemTimers.forEach(timer => clearTimeout(timer))
     }
-  }, [items.length])
+  }, [items.length, startAnimation])
 
   return (
     <div className={styles.storyBlock} style={{ '--bg-image': `url(${backgroundImage})` } as React.CSSProperties}>

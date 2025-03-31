@@ -1,3 +1,4 @@
+// StoryBlock.module.scss
 .storyBlock {
   min-height: 100vh;
   display: flex;
@@ -35,7 +36,7 @@
     z-index: 1;
     width: 100%;
     max-width: 800px;
-    padding: 0.5rem;
+    padding: 2rem; // Увеличим padding для лучшего визуального восприятия
     background-color: var(--block-back);
     backdrop-filter: var(--block-filter);
     border-radius: 15px;
@@ -43,12 +44,13 @@
 }
 
 .title {
-  font-size: clamp(2rem, 2.5rem, 3rem);
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; // Увеличим отступ
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
   text-align: center;
+  font-size: var(--font-size-title);
+  width: 100%; // Добавим фиксированную ширину
 
   &.show {
     opacity: 1;
@@ -61,8 +63,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  max-width: 500px;
+  gap: 2rem;
   width: 100%;
 }
 
@@ -70,7 +71,13 @@
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
-  text-align: center;
+  width: 100%; // Фиксированная ширина
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 200px; // Фиксированная высота изображения
+  gap: 1rem;
+  align-items: center;
+  justify-items: center;
 
   &.show {
     opacity: 1;
@@ -79,13 +86,15 @@
 }
 
 .text {
-  font-size: clamp(1.2rem, 1.5rem, 3rem);
+  font-size: var(--font-size-text);
+  text-align: center;
+  width: 100%;
+  margin: 0;
 }
 
 .imageWrapper {
-  max-width: 200px;
-  width: 60%;
-  aspect-ratio: 1/1;
+  width: 200px;
+  height: 200px;
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -113,11 +122,26 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .imageWrapper {
-    width: 40% !important;
+  .storyBlock {
+    padding: 1rem;
+  }
+
+  .content {
+    gap: 0.2rem;
+    padding: 1.5rem;
   }
 
   .items {
-    gap: 0.2rem;
+    gap: 0.6rem;
   }
-} 
+
+  .item {
+    grid-template-rows: auto 120px;
+    gap: 0.2rem; // Уменьшаем высоту изображения на мобильных
+  }
+
+  .imageWrapper {
+    width: 120px;
+    height: 120px;
+  }
+}

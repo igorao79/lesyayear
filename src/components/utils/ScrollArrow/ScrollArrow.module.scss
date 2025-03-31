@@ -11,7 +11,7 @@
   color: var(--primary-color);
   cursor: pointer;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(10px);
   transition: opacity 0.5s ease, transform 0.5s ease;
   user-select: none;
   pointer-events: none;

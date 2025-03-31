@@ -3,11 +3,17 @@ import styles from './PageTransition.module.scss'
 
 interface PageTransitionProps {
   onTransitionEnd: () => void
-  onScrollStart: () => void // Функция для запуска скролла
-  isVisible: boolean // Флаг для контроля видимости блоков
+  onScrollStart: () => void
+  isVisible: boolean
+  direction?: 'up' | 'down'
 }
 
-export const PageTransition: React.FC<PageTransitionProps> = ({ onTransitionEnd, onScrollStart, isVisible }) => {
+export const PageTransition: React.FC<PageTransitionProps> = ({ 
+  onTransitionEnd, 
+  onScrollStart, 
+  isVisible,
+  direction = 'down' 
+}) => {
   const [isAnimating, setIsAnimating] = useState(true)
 
   useEffect(() => {
@@ -31,7 +37,7 @@ export const PageTransition: React.FC<PageTransitionProps> = ({ onTransitionEnd,
 
   return (
     <>
-      <div className={`${styles.transition} ${isAnimating ? styles.animate : ''}`}>
+      <div className={`${styles.transition} ${isAnimating ? styles.animate : ''} ${direction === 'up' ? styles.up : ''}`}>
         <div className={styles.heart}>❤️</div>
       </div>
       <div style={{ visibility: isVisible ? 'visible' : 'hidden' }}>

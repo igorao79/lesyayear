@@ -7,6 +7,9 @@
   pointer-events: none;
   z-index: 1000;
   overflow: hidden;
+  contain: strict; // Оптимизация для браузера
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 .heart {
@@ -16,34 +19,23 @@
   animation: fall linear forwards;
   opacity: 0;
   will-change: transform;
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0); // Аппаратное ускорение
+  backface-visibility: hidden;
 }
 
 @keyframes fall {
   0% {
-    transform: translateY(0) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
     opacity: 0;
   }
   10% {
     opacity: 1;
   }
-  80% {
+  90% {
     opacity: 1;
   }
   100% {
-    transform: translateY(100vh) rotate(360deg);
+    transform: translate3d(0, 100vh, 0) rotate(360deg);
     opacity: 0;
   }
 }
-
-@media (max-width: 768px) {
-  .heart {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .heart {
-    font-size: 14px;
-  }
-} 

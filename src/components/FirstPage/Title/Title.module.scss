@@ -1,5 +1,5 @@
 .title {
-  font-size: clamp(1.5rem, 4vw + 1rem, 3rem);
+  font-size: var(--font-size-title2);
   color: var(--primary-color);
   text-align: center;
   opacity: 0;

@@ -1,82 +1,79 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styles from './HeartsAnimation.module.scss'
 
 const MAX_HEARTS = window.innerWidth < 768 ? 8 : 15
 const HEARTS = ['❤️', '💖', '💝', '💕', '💗', '💓', '💞', '💘']
 
-interface Heart {
-  id: number
-  emoji: string
-  left: number
-  animationDuration: number
-  delay: number
-  bottom: number
-}
-
 export const HeartsAnimation: React.FC = () => {
-  const [hearts, setHearts] = useState<Heart[]>([])
-  const animationRef = useRef<number>()
-  const isActiveRef = useRef(true)
   const containerRef = useRef<HTMLDivElement>(null)
+  const heartsRef = useRef<Set<number>>(new Set())
+  const nextIdRef = useRef(0)
+  const isActiveRef = useRef(true)
 
   useEffect(() => {
+    if (!containerRef.current) return
+
     const createHeart = () => {
       if (!isActiveRef.current || !containerRef.current) return
-      
-      const containerHeight = containerRef.current.offsetHeight
-      
-      const newHeart: Heart = {
-        id: Date.now(),
-        emoji: HEARTS[Math.floor(Math.random() * HEARTS.length)],
-        left: Math.random() * 100,
-        animationDuration: window.innerWidth < 768 ? 4 + Math.random() * 2 : 6 + Math.random() * 3,
-        delay: Math.random() * 2,
-        bottom: containerHeight
-      }
 
-      setHearts(prevHearts => {
-        const updatedHearts = [...prevHearts, newHeart]
-        return updatedHearts.length > MAX_HEARTS 
-          ? updatedHearts.slice(-MAX_HEARTS)
-          : updatedHearts
+      const id = nextIdRef.current++
+      heartsRef.current.add(id)
+
+      const containerHeight = containerRef.current.offsetHeight
+      const heart = document.createElement('div')
+      heart.className = styles.heart
+      heart.dataset.id = id.toString()
+
+      const emoji = HEARTS[Math.floor(Math.random() * HEARTS.length)]
+      const left = Math.random() * 100
+      const duration = window.innerWidth < 768 
+        ? 4 + Math.random() * 2 
+        : 6 + Math.random() * 3
+      const delay = Math.random() * 2
+
+      heart.style.left = `${left}%`
+      heart.style.bottom = `${containerHeight}px`
+      heart.style.animationDuration = `${duration}s`
+      heart.style.animationDelay = `${delay}s`
+      heart.style.willChange = 'transform'
+      heart.textContent = emoji
+
+      heart.addEventListener('animationend', () => {
+        heart.remove()
+        heartsRef.current.delete(id)
       })
+
+      containerRef.current.appendChild(heart)
+
+      // Ограничение количества сердец
+      if (heartsRef.current.size > MAX_HEARTS) {
+        const oldestId = Array.from(heartsRef.current)[0]
+        const oldestHeart = containerRef.current.querySelector(`[data-id="${oldestId}"]`)
+        oldestHeart?.remove()
+        heartsRef.current.delete(oldestId)
+      }
     }
 
     const handleVisibilityChange = () => {
       isActiveRef.current = !document.hidden
-      if (document.hidden) {
-        setHearts([])
+      if (document.hidden && containerRef.current) {
+        containerRef.current.innerHTML = ''
+        heartsRef.current.clear()
       }
     }
 
     document.addEventListener('visibilitychange', handleVisibilityChange)
-    animationRef.current = window.setInterval(createHeart, window.innerWidth < 768 ? 800 : 500)
+    const intervalId = setInterval(createHeart, window.innerWidth < 768 ? 800 : 500)
 
     return () => {
-      if (animationRef.current) {
-        window.clearInterval(animationRef.current)
-      }
+      clearInterval(intervalId)
       document.removeEventListener('visibilitychange', handleVisibilityChange)
+      if (containerRef.current) {
+        containerRef.current.innerHTML = ''
+      }
+      heartsRef.current.clear()
     }
   }, [])
 
-  return (
-    <div ref={containerRef} className={styles.heartsContainer}>
-      {hearts.map(heart => (
-        <div
-          key={heart.id}
-          className={styles.heart}
-          style={{
-            left: `${heart.left}%`,
-            bottom: `${heart.bottom}px`,
-            animationDuration: `${heart.animationDuration}s`,
-            animationDelay: `${heart.delay}s`,
-            willChange: 'transform'
-          }}
-        >
-          {heart.emoji}
-        </div>
-      ))}
-    </div>
-  )
+  return <div ref={containerRef} className={styles.heartsContainer} />
 }

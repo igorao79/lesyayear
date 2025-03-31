@@ -76,6 +76,9 @@ function App() {
   const [showTransition, setShowTransition] = useState(false)
   const [isResetting, setIsResetting] = useState(false)
   const [isTransitionVisible, setIsTransitionVisible] = useState(false)
+  const [startStoryAnimation, setStartStoryAnimation] = useState(false)
+  const [startThirdPageAnimation, setStartThirdPageAnimation] = useState(false)
+  const [startFourthPageAnimation, setStartFourthPageAnimation] = useState(false)
   const firstPageRef = useRef<HTMLDivElement>(null)
   const storyRef = useRef<HTMLDivElement>(null)
   const thirdPageRef = useRef<HTMLDivElement>(null)
@@ -146,6 +149,9 @@ function App() {
   const handleTransitionEnd = () => {
     setShowTransition(false)
     setIsTransitionVisible(false)
+    if (showStory) setStartStoryAnimation(true)
+    if (showThirdPage) setStartThirdPageAnimation(true)
+    if (showFourthPage) setStartFourthPageAnimation(true)
   }
 
   const handleScrollStart = () => {
@@ -155,6 +161,9 @@ function App() {
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>, setShowState: (value: boolean) => void) => {
     setShowTransition(true)
     setShowState(true)
+    setStartStoryAnimation(false)
+    setStartThirdPageAnimation(false)
+    setStartFourthPageAnimation(false)
     
     setTimeout(() => {
       if (ref.current) {
@@ -181,22 +190,34 @@ function App() {
   }
 
   const scrollToTop = () => {
-    setShowTransition(true)
-    setIsResetting(true)
-    
-    if (firstPageRef.current) {
-      firstPageRef.current.scrollIntoView({ behavior: 'smooth' })
-    }
-
+    // Сначала скрываем все блоки
     setShowStory(false)
     setShowThirdPage(false)
     setShowFourthPage(false)
     setShowFinalPage(false)
+    
+    // Сбрасываем состояния первой страницы
     setShowText(false)
     setShowNumber(false)
     setNumber(0)
     setShowYear(false)
     setShowArrow(false)
+    
+    // Сбрасываем состояния анимации
+    setStartStoryAnimation(false)
+    setStartThirdPageAnimation(false)
+    setStartFourthPageAnimation(false)
+    
+    // Показываем анимацию перехода
+    setShowTransition(true)
+    setIsTransitionVisible(true)
+    
+    // После анимации скроллим наверх
+    setTimeout(() => {
+      if (firstPageRef.current) {
+        firstPageRef.current.scrollIntoView({ behavior: 'smooth' })
+      }
+    }, 500)
   }
 
   return (
@@ -207,6 +228,7 @@ function App() {
           onTransitionEnd={handleTransitionEnd}
           onScrollStart={handleScrollStart}
           isVisible={isTransitionVisible}
+          direction={showFinalPage ? 'up' : 'down'}
         />
       )}
       <div className={styles.section} ref={firstPageRef}>
@@ -227,6 +249,7 @@ function App() {
             items={secondPageItems}
             onScrollClick={scrollToThirdPage}
             backgroundImage="/lesyayear/images/back/page2.jpg"
+            startAnimation={startStoryAnimation}
           />
         </div>
       )}
@@ -237,6 +260,7 @@ function App() {
             items={thirdPageItems}
             onScrollClick={scrollToFourthPage}
             backgroundImage="/lesyayear/images/back/page3.jpg"
+            startAnimation={startThirdPageAnimation}
           />
         </div>
       )}
@@ -247,6 +271,7 @@ function App() {
             items={fourthPageItems}
             onScrollClick={scrollToFinalPage}
             backgroundImage="/lesyayear/images/back/page4.jpg"
+            startAnimation={startFourthPageAnimation}
           />
         </div>
       )}

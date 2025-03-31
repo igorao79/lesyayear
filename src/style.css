@@ -16,7 +16,7 @@ html, body {
 }
 
 body {
-  line-height: 1.6;
+  line-height: 1.3;
   position: relative;
 }
 
@@ -34,6 +34,7 @@ body {
     --block-back: rgba(255, 255, 255, 0.2);
     --block-filter: blur(5px);
     --font-size-title: 2.3rem;
+    --font-size-title2: 2.5rem;
     --font-size-text: 2rem;
 }
 
@@ -68,7 +69,8 @@ p, span, a, li {
 
 @media only screen and (max-width: 768px) {
   :root {
-    --font-size-title: 1.5rem;
-    --font-size-text: 1.3rem;
+    --font-size-title: 1.2rem;
+    --font-size-title2: 1.5rem;
+    --font-size-text: 1.2rem;
   }
 }

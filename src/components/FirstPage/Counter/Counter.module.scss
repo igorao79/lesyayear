@@ -13,7 +13,7 @@
 }
 
 .text {
-  font-size: 2.5rem;
+  font-size: var(--font-size-title2);
   font-weight: 700;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .year {
-  font-size: 2.3rem;
+  font-size: var(--font-size-title2);
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease;

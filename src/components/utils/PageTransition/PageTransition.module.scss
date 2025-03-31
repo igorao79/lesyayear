@@ -8,44 +8,44 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 1000;
   opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
   user-select: none;
   will-change: opacity, transform;
   transform: translateZ(0);
   backface-visibility: hidden;
   perspective: 1000px;
+}
 
-  &.animate {
-    opacity: 1;
-    pointer-events: auto;
-  }
+.transition.animate {
+  opacity: 1;
+  visibility: visible;
+}
+
+.transition.up {
+  transform: translateY(100%);
+}
+
+.transition.up.animate {
+  transform: translateY(0);
 }
 
 .heart {
-  font-size: 3rem;
-  transform: scale(0);
-  animation: heartFloat 1.5s ease-in-out infinite;
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  perspective: 1000px;
+  font-size: 48px;
+  animation: pulse 1s infinite;
 }
 
-@keyframes heartFloat {
+@keyframes pulse {
   0% {
-    transform: scale(0) translateY(0);
-    opacity: 0;
+    transform: scale(1);
   }
   50% {
-    transform: scale(1.1) translateY(-10px);
-    opacity: 1;
+    transform: scale(1.2);
   }
   100% {
-    transform: scale(1) translateY(0);
-    opacity: 1;
+    transform: scale(1);
   }
 }
 

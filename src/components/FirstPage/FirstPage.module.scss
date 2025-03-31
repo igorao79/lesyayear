@@ -62,7 +62,6 @@
   text-align: center;
   margin: 0;
   opacity: 0;
-  transform: translateY(20px);
   transition: all 0.8s ease;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 
@@ -79,7 +78,6 @@
   text-align: center;
   margin: 0;
   opacity: 0;
-  transform: translateY(20px);
   transition: all 0.8s ease 0.3s;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 
@@ -119,8 +117,13 @@
 
 
 @media (max-width: 768px) {
+
+  .firstPage {
+    padding: 15%;
+  }
+
   .content {
-    padding: 0.5rem;
+    padding: 0.1rem;
     gap: 0 !important;
   }
 }
