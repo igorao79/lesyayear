@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback, memo, useRef } from 'react'
 import styles from './FinalPage.module.scss'
 import ScrollToTop from '../utils/ScrollToTop/ScrollToTop'
+import { OptimizedBackground } from '../utils/OptimizedBackground/OptimizedBackground'
 
 interface FinalPageProps {
   onScrollToTop: () => void
@@ -104,6 +105,13 @@ export const FinalPage = ({ onScrollToTop }: FinalPageProps) => {
 
   return (
     <div className={styles.finalPage}>
+      <OptimizedBackground 
+        image={{
+          avif: '/lesyayear/images/back/finalpage.avif',
+          webp: '/lesyayear/images/back/finalpage.webp',
+          jpg: '/lesyayear/images/back/finalpage.jpg'
+        }}
+      />
       <div className={styles.content}>
         <MemoizedText text="Спасибо тебе за все" show={showTexts[0]} isLast={false} />
         <MemoizedText text="Надеюсь, мы будем вместе всегда" show={showTexts[1]} isLast={false} />
