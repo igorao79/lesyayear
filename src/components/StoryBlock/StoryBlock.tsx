@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from './StoryBlock.module.scss'
 import { ScrollArrow } from '../utils/ScrollArrow/ScrollArrow'
+import { OptimizedBackground } from '../utils/OptimizedBackground/OptimizedBackground'
 
 interface StoryItem {
   text: string
@@ -15,7 +16,11 @@ interface StoryBlockProps {
   title: string
   items: StoryItem[]
   onScrollClick?: () => void
-  backgroundImage: string
+  backgroundImage: {
+    avif: string
+    webp: string
+    jpg: string
+  }
   showArrow?: boolean
   startAnimation?: boolean
 }
@@ -65,7 +70,8 @@ export const StoryBlock: React.FC<StoryBlockProps> = ({
   }, [items.length, startAnimation])
 
   return (
-    <div className={styles.storyBlock} style={{ '--bg-image': `url(${backgroundImage})` } as React.CSSProperties}>
+    <div className={styles.storyBlock}>
+      <OptimizedBackground image={backgroundImage} />
       <div className={styles.content}>
         <h2 className={`${styles.title} ${showTitle ? styles.show : ''}`}>
           {title}

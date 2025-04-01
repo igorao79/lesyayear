@@ -172,11 +172,15 @@
   border: none;
   -webkit-box-shadow: none;
           box-shadow: none;
+  opacity: 0;
 }
 .gif:hover {
   -webkit-transform: scale(1.05);
       -ms-transform: scale(1.05);
           transform: scale(1.05);
+}
+.gif.visible {
+  opacity: 1;
 }
 
 @media only screen and (max-width: 768px) {

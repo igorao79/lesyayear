@@ -21,7 +21,7 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
     const showAnimation = setTimeout(() => {
       // После небольшой задержки начинаем скролл
       onScrollStart()
-    }, 200)
+    }, 400)
 
     // Анимация длится 1.5 секунды
     const hideAnimation = setTimeout(() => {

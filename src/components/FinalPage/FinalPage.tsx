@@ -15,6 +15,19 @@ const MemoizedText = memo(({ text, show, isLast }: { text: string; show: boolean
 const MemoizedGifs = memo(({ show }: { show: boolean }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
+  
+  // Предзагрузка гифок при монтировании компонента
+  useEffect(() => {
+    const gifUrls = [
+      '/lesyayear/images/kotikleft.gif',
+      '/lesyayear/images/kotikright.gif'
+    ]
+
+    gifUrls.forEach(url => {
+      const img = new Image()
+      img.src = url
+    })
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,12 +50,16 @@ const MemoizedGifs = memo(({ show }: { show: boolean }) => {
 
   return (
     <div ref={containerRef} className={`${styles.gifsContainer} ${show ? styles.show : ''}`}>
-      {isVisible && (
-        <>
-          <img src="/lesyayear/images/kotikleft.gif" alt="Love gif 1" className={styles.gif} loading="lazy" />
-          <img src="/lesyayear/images/kotikright.gif" alt="Love gif 2" className={styles.gif} loading="lazy" />
-        </>
-      )}
+      <img 
+        src="/lesyayear/images/kotikleft.gif" 
+        alt="Love gif 1" 
+        className={`${styles.gif} ${isVisible ? styles.visible : ''}`} 
+      />
+      <img 
+        src="/lesyayear/images/kotikright.gif" 
+        alt="Love gif 2" 
+        className={`${styles.gif} ${isVisible ? styles.visible : ''}`} 
+      />
     </div>
   )
 })

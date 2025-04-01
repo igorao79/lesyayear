@@ -248,7 +248,11 @@ function App() {
             title="За это время мы смогли ..."
             items={secondPageItems}
             onScrollClick={scrollToThirdPage}
-            backgroundImage="/lesyayear/images/back/page2.jpg"
+            backgroundImage={{
+              avif: '/lesyayear/images/back/page2.avif',
+              webp: '/lesyayear/images/back/page2.webp',
+              jpg: '/lesyayear/images/back/page2.jpg'
+            }}
             startAnimation={startStoryAnimation}
           />
         </div>
@@ -259,7 +263,11 @@ function App() {
             title="А также мы ..."
             items={thirdPageItems}
             onScrollClick={scrollToFourthPage}
-            backgroundImage="/lesyayear/images/back/page3.jpg"
+            backgroundImage={{
+              avif: '/lesyayear/images/back/page3.avif',
+              webp: '/lesyayear/images/back/page3.webp',
+              jpg: '/lesyayear/images/back/page3.jpg'
+            }}
             startAnimation={startThirdPageAnimation}
           />
         </div>
@@ -270,7 +278,11 @@ function App() {
             title="Мы провели ..."
             items={fourthPageItems}
             onScrollClick={scrollToFinalPage}
-            backgroundImage="/lesyayear/images/back/page4.jpg"
+            backgroundImage={{
+              avif: '/lesyayear/images/back/page4.avif',
+              webp: '/lesyayear/images/back/page4.webp',
+              jpg: '/lesyayear/images/back/page4.jpg'
+            }}
             startAnimation={startFourthPageAnimation}
           />
         </div>
